@@ -1,15 +1,14 @@
 name: Geoplugin
-version: 0.1.0
+version: 1.0.0
 description: Geo locates your visitor using GeoPlugin.com
-icon: plug
+icon: globe
 author:
   name: Aaron Dalton
   email: aaron@daltons.ca
-homepage: https://github.com/aaron-dalton/grav-plugin-geoplugin
-demo: http://demo.yoursite.com
-keywords: grav, plugin, etc
-bugs: https://github.com/aaron-dalton/grav-plugin-geoplugin/issues
-readme: https://github.com/aaron-dalton/grav-plugin-geoplugin/blob/develop/README.md
+homepage: https://github.com/Perlkonig/grav-plugin-geoplugin
+keywords: grav, plugin, geoip, geolocation, location
+bugs: https://github.com/Perlkonig/grav-plugin-geoplugin/issues
+readme: https://github.com/Perlkonig/grav-plugin-geoplugin/blob/master/README.md
 license: MIT
 
 form:
@@ -25,7 +24,3 @@ form:
         0: Disabled
       validate:
         type: bool
-    text_var:
-      type: text
-      label: Text Variable
-      help: Text to add to the top of a page
