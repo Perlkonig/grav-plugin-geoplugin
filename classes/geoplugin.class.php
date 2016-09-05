@@ -26,7 +26,14 @@ See http://www.geoplugin.com/webservices/php for more specific details of this f
 
 */
 
+/*
+The licence text above has been untouched, but the code has been modified to use
+built-in Grav utilities.
+*/
+
 namespace Grav\Plugin;
+
+use Grav\Common\GPM\Response;
 
 class geoPlugin {
 	
@@ -55,22 +62,23 @@ class geoPlugin {
 
 	}
 	
-	function locate($ip = null) {
+	function locate($cache, $ip = null) {
 		
 		global $_SERVER;
 		
 		if ( is_null( $ip ) ) {
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
-		
-		$host = str_replace( '{IP}', $ip, $this->host );
-		$host = str_replace( '{CURRENCY}', $this->currency, $host );
-		
-		$data = array();
-		
-		$response = $this->fetch($host);
-		
-		$data = unserialize($response);
+
+		$data = $cache->fetch('geoplugin.'.$ip);
+		if (! $data) {
+			$host = str_replace( '{IP}', $ip, $this->host );
+			$host = str_replace( '{CURRENCY}', $this->currency, $host );
+			$response = Response::get($host);
+			$data = array();
+			$data = unserialize($response);
+			$cache->save('geoplugin.'.$ip, $data);
+		}
 		
 		//set the geoPlugin vars
 		$this->ip = $ip;
@@ -87,33 +95,6 @@ class geoPlugin {
 		$this->currencySymbol = $data['geoplugin_currencySymbol'];
 		$this->currencyConverter = $data['geoplugin_currencyConverter'];
 		
-	}
-	
-	function fetch($host) {
-
-		if ( function_exists('curl_init') ) {
-						
-			//use cURL to fetch data
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $host);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_USERAGENT, 'geoPlugin PHP Class v1.0');
-			$response = curl_exec($ch);
-			curl_close ($ch);
-			
-		} else if ( ini_get('allow_url_fopen') ) {
-			
-			//fall back to fopen()
-			$response = file_get_contents($host, 'r');
-			
-		} else {
-
-			trigger_error ('geoPlugin class Error: Cannot retrieve data. Either compile PHP with cURL support or enable allow_url_fopen in php.ini ', E_USER_ERROR);
-			return;
-		
-		}
-		
-		return $response;
 	}
 	
 	function convert($amount, $float=2, $symbol=true) {

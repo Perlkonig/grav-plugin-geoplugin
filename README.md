@@ -45,6 +45,4 @@ plugins.geoplugin.latitude
 
 ## Performance
 
-I don't know enough about the Grav lifecycle to know how often this API call actually occurs. If you have lots of API calls happening, or if you have lots of traffic, this plugin may become problematic.
-
-If this is an area of expertise of yours, I welcome feedback and pull requests.
+This plugin uses Grav's built-in caching API, so only one external API call should ever be made for a given IP address unless you clear the cache.

@@ -42,7 +42,7 @@ class GeopluginPlugin extends Plugin
 
         // Enable the main event we are interested in
         $geoplugin = new geoPlugin();
-        $geoplugin->locate();
+        $geoplugin->locate($this->grav['cache']);
         $this->config->set('plugins.geoplugin.city', $geoplugin->city);
         $this->config->set('plugins.geoplugin.region', $geoplugin->region);
         $this->config->set('plugins.geoplugin.areaCode', $geoplugin->areaCode);
