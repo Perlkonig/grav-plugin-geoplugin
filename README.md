@@ -1,5 +1,7 @@
 # Geoplugin Plugin
 
+***Abandonment Notice:** I'm afraid I simply don't have the time to maintain my Grav themes and plugins. Those interested in taking over should refer to the ["Abandoned Resource Protocol"](https://learn.getgrav.org/17/advanced/grav-development#abandoned-resource-protoc). Feel free to fork and replace. So long, and thanks for all the fish.*
+
 The **Geoplugin** Plugin is for [Grav CMS](http://github.com/getgrav/grav). It attempts to geolocate your visitor using [the geoPlugin service](http://www.geoplugin.com).
 
 > Remember that it is very easy to spoof your IP address! All this plugin does is return the data from [the geoPlugin service](http://www.geoplugin.com).
